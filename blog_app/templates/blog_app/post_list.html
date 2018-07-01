@@ -1,0 +1,22 @@
+{% extends 'blog_app/base.html' %}
+{% block contentblock  %}
+<div class="centerstage">
+  {% if not post_list %}
+  <p class="myheader techfont">No Posts Why Not Create Some!</p>
+  {% else %}
+  {% for post in post_list %}
+   <div class="post">
+     <h1><a href="{% url 'blog_app:post_detail' pk=post.pk %}">{{ post.title }}</a> </h1>
+     <p>{{ post.text|title|truncatechars:100 }}</p>
+     <br>
+     <div class="commentclass">
+       <p>Published on:<b> {{post.published_date|date:"Y-m-d"}} </b> </p>
+
+     <a href="{% url 'blog_app:post_detail' pk=post.pk %}">Comments:<b> {{ post.comment_count }} </b></a>
+    </div>
+   </div>
+   <hr>
+   {% endfor %}
+   {% endif %}
+</div>
+{% endblock %}
